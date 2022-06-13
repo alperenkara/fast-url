@@ -18,7 +18,7 @@ class Settings(BaseSettings):
     # Address of your database
     db_url: str = "sqlite:///./shortener.db"
     
-    class Config:
+class Config:
         env_file = ".env"
 
 #  Least Recently Used (LRU) 
