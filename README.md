@@ -14,3 +14,12 @@ Build a URL Shortener With FastAPI and Python
 | :---         |     :---:      |          ---: |
 | git status   | git status     | git status    |
 | git diff     | git diff       | git diff      |
+
+# Aimed response body: 
+{
+  "target_url": "https://realpython.com",
+  "is_active": true,
+  "clicks": 0,
+  "url": "JNPGB",
+  "admin_url": "MIZJZYVA"
+}
