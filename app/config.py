@@ -17,7 +17,8 @@ class Settings(BaseSettings):
     base_url: str = "http://localhost:8000"
     # Address of your database
     db_url: str = "sqlite:///./shortener.db"
-    
+    # TODO:
+    # root of your project directory. 
     class Config:
         env_file = ".env"
 
