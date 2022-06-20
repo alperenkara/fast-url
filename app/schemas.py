@@ -4,6 +4,7 @@ from pydantic import BaseModel
 
 
 """
+API response will be similar below:
 {
   "target_url": "https://realpython.com",
   "is_active": true,
@@ -13,7 +14,7 @@ from pydantic import BaseModel
 }
 """
 
-
+# we are defining the API response
 class URLBase(BaseModel):
     target_url: str 
     
