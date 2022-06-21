@@ -1,9 +1,13 @@
 # app/main.py 
+from io import DEFAULT_BUFFER_SIZE
 import secrets
 import re
+from statistics import mode
 # validator package check the URL string is whether valid or not. 
 import validators
-from fastapi import Depends, FastAPI,HTTPException
+from fastapi import Depends, FastAPI,HTTPException, Request
+# RedirectResponse returns an HTTP redirect that forwards the request of the client.
+from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session
 from . import models, schemas
 from .database import SessionLocal, engine
@@ -52,6 +56,28 @@ def create_url(url: schemas.URLBase, db: Session = Depends(get_db)):
 def raise_bad_request(message):
     raise HTTPException(status_code=400, detail=message)
 
+def raise_not_found(request):
+    message = f"URL'{request.url}' does not exist"
+    raise HTTPException(status_code=404,detail=message)
+
+# you allow GET requests for the URL that you provide as an argument. 
+@app.get("/{url_key}")
+def forward_to_target_url(
+    url_key: str,
+    request: Request,
+    db: Session = Depends(get_db)
+):
+    db_url = (
+        db.query(models.URL)
+        .filter(models.URL.key == url_key, models.URL.is_active)
+        .first()
+    )
+    if db_url:
+        return RedirectResponse(db_url.target_url)
+    else:
+        raise_not_found(request)
+        
+        
 # path operation decorator
 @app.get("/")
 # FastAPI listens to the root path and delegates all incoming GET requests to your read_root() function.
