@@ -26,7 +26,7 @@ def get_db():
 # stating create_url endpoint 
 # URL string as POST request body. 
 
-def create_url(url: schemas.URLBase):
+def create_url(url: schemas.URLBase, db: Session = Depends(get_db)):
     # check URL, if it is not valid, pass it! 
     if not validators.url(url.target_url):
         raise_bad_request(message="URL is not valid")
