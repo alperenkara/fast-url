@@ -6,7 +6,7 @@ from functools import lru_cache
 from pydantic import BaseSettings # pylint: disable=import-error
 
 """
-a subclass of BaseSettings. The BaseSettings class comes in handy to define environment variables in your application. You only have to define the variables that you want to use, and pydantic takes care of the rest. 
+A subclass of BaseSettings. The BaseSettings class comes in handy to define environment variables in your application. You only have to define the variables that you want to use, and pydantic takes care of the rest. 
 In other words, pydantic will automatically assume those default values if it doesn’t find the corresponding environment variables.
 """
 # defining default variables 
@@ -25,6 +25,7 @@ class Settings(BaseSettings):
 #  Least Recently Used (LRU) 
 @lru_cache
 # the option of caching your settings. 
+# return value annotation. 
 def get_settings() -> Settings: 
     
     settings = Settings()
